@@ -17,6 +17,12 @@ on:
     - uses: actions/checkout@v2
     - name: trufflehog
       run: docker run --rm -t -v "$PWD:/pwd" trufflesecurity/trufflehog:latest  filesystem /pwd/lib/ >> $GITHUB_STEP_SUMMARY
+semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: semgrep
+        run: docker run --rm -v "${PWD}:/src" returntocorp/semgrep semgrep scan *    >>    $GITHUB_STEP_SUMMARY            
 
 jobs:
   build:
