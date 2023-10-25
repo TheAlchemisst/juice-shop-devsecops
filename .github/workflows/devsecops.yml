@@ -11,6 +11,13 @@ on:
           - DAST/IAST
         required: true  
 
+ secret-leaks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: trufflehog
+      run: docker run --rm -t -v "$PWD:/pwd" trufflesecurity/trufflehog:latest  filesystem /pwd/lib/ >> $GITHUB_STEP_SUMMARY
+
 jobs:
   build:
     runs-on: ubuntu-latest
